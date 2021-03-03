@@ -1,0 +1,17 @@
+---
+title: "individual1.Rmd"
+output: html_document
+---
+
+
+
+
+```{r}
+
+dat <- readxl::read_xls('GSS.xls')
+print(dat)
+```
+```{r}
+
+
+```
