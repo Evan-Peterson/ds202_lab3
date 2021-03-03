@@ -1,0 +1,25 @@
+---
+title: "team.Rmd"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+dat <- readxl::read_xls('GSS.xls')
+print(dat)
+```
+
+
+```{r}
+dat = rename(dat, mStatus = `Marital status`)
+dat = rename(dat, highestSchool = `Highest year of school completed`)
+dat = rename(dat, sex = `Respondents sex`)
+dat = rename(dat, politicalParty = `Political party affiliation`)
+dat = rename(dat, happiness = `General happiness`)
+
+```
+
+1.
+```{r}
+
+```
