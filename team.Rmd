@@ -5,6 +5,7 @@ output: html_document
 
 ```{r}
 library(dplyr)
+library(ggplot2)
 dat <- readxl::read_xls('GSS.xls')
 print(dat)
 ```
@@ -18,8 +19,58 @@ dat = rename(dat, politicalParty = `Political party affiliation`)
 dat = rename(dat, happiness = `General happiness`)
 
 ```
-
-1.
 ```{r}
+dat$highestSchool = as.numeric(as.character(dat$highestSchool))
 
 ```
+
+1.
+
+
+```{r}
+temp <- dat %>%
+  group_by(mStatus) %>%
+  dplyr::summarise(Ave = mean(highestSchool, na.rm = TRUE))
+
+temp <- na.omit(temp)
+
+ggplot(temp, aes(x=mStatus, weight=Ave)) + geom_bar()
+```
+
+
+<br />
+2.
+```{r}
+
+#highEd <- filter(dat, highestSchool >= temp$Ave & mStatus == temp$mStatus)
+
+```
+
+<br />
+3. 
+```{r}
+veryHappy <- filter(dat, happiness == 'Very happy')
+
+ggplot(veryHappy, aes(x="", y=sum(happiness == 'Very happy'), fill=mStatus)) + geom_bar(stat="identity", width=1) + coord_polar("y", start=0)
+
+```
+
+
+```{r}
+prettyHappy <- filter(dat, happiness == 'Pretty happy')
+
+ggplot(prettyHappy, aes(x="", y=sum(happiness == 'Pretty happy'), fill=mStatus)) + geom_bar(stat="identity", width=1) + coord_polar("y", start=0)
+
+```
+
+```{r}
+print(sum(prettyHappy$happiness == 'Pretty happy'))
+print(sum(veryHappy$happiness == 'Very happy'))
+```
+
+
+As we can see from the pie charts, the large majority of the people that responded very happy are married.  This means that there is a greater chance that one is happier if they are married.  
+
+<br />
+4.
+
