@@ -73,4 +73,7 @@ As we can see from the pie charts, the large majority of the people that respond
 
 <br />
 4.
+```{r}
 
+ggplot(prettyHappy, aes(x="", y=sum(happiness == 'Pretty happy'), fill=mStatus)) + geom_bar(stat="identity", width=1) + facet_wrap(~ politicalParty)
+```
