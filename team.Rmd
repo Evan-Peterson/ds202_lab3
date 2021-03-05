@@ -77,3 +77,9 @@ As we can see from the pie charts, the large majority of the people that respond
 
 ggplot(prettyHappy, aes(x="", y=sum(happiness == 'Pretty happy'), fill=mStatus)) + geom_bar(stat="identity", width=1) + facet_wrap(~ politicalParty)
 ```
+
+<br />
+5. 
+```{r}
+ggplot(dat, aes(x = politicalParty, y = highestSchool)) + geom_boxplot() + theme(axis.text.x = element_text(angle = 90))
+```
