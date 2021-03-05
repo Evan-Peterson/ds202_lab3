@@ -17,7 +17,7 @@ dat = rename(dat, highestSchool = `Highest year of school completed`)
 dat = rename(dat, sex = `Respondents sex`)
 dat = rename(dat, politicalParty = `Political party affiliation`)
 dat = rename(dat, happiness = `General happiness`)
-
+dat = rename(dat, age = `Age of respondent`)
 ```
 ```{r}
 dat$highestSchool = as.numeric(as.character(dat$highestSchool))
@@ -30,7 +30,7 @@ dat$highestSchool = as.numeric(as.character(dat$highestSchool))
 ```{r}
 temp <- dat %>%
   group_by(mStatus) %>%
-  dplyr::summarise(Ave = mean(highestSchool, na.rm = TRUE))
+  summarise(Ave = mean(highestSchool, na.rm = TRUE)) 
 
 temp <- na.omit(temp)
 
@@ -38,12 +38,13 @@ ggplot(temp, aes(x=mStatus, weight=Ave)) + geom_bar()
 ```
 
 
+
 <br />
 2.
 ```{r}
-
-#highEd <- filter(dat, highestSchool >= temp$Ave & mStatus == temp$mStatus)
-
+highEd <- filter(dat, highestSchool >= temp$Ave & (mStatus == temp$mStatus))
+str(highEd)
+head(highEd)
 ```
 
 <br />
@@ -83,3 +84,18 @@ ggplot(prettyHappy, aes(x="", y=sum(happiness == 'Pretty happy'), fill=mStatus))
 ```{r}
 ggplot(dat, aes(x = politicalParty, y = highestSchool)) + geom_boxplot() + theme(axis.text.x = element_text(angle = 90))
 ```
+
+<br />
+6.
+```{r}
+ggplot(dat, aes(x=sex, fill=happiness))+geom_bar(position='fill')
+```
+
+Males and females reported very similar levels of happiness.
+
+```{r}
+ggplot(dat, aes(x=sex, y=highestSchool))+geom_boxplot()
+
+```
+
+Females and Males have similar mean for their highest level of education, but males have a higher third quartile than females.
