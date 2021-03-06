@@ -42,9 +42,15 @@ ggplot(temp, aes(x=mStatus, weight=Ave)) + geom_bar()
 <br />
 2.
 ```{r}
-highEd <- filter(dat, highestSchool >= temp$Ave & (mStatus == temp$mStatus))
-str(highEd)
-head(highEd)
+#highEd <- filter(dat, highestSchool >= temp$Ave & (mStatus == temp$mStatus))
+#str(highEd)
+#head(highEd)
+
+highEd <- dat %>% 
+    group_by(mStatus) %>%
+    filter(highestSchool > mean(as.numeric(highestSchool), na.rm=TRUE))
+
+print(highEd)
 ```
 
 <br />
@@ -78,12 +84,13 @@ As we can see from the pie charts, the large majority of the people that respond
 
 ggplot(prettyHappy, aes(x="", y=sum(happiness == 'Pretty happy'), fill=mStatus)) + geom_bar(stat="identity", width=1) + facet_wrap(~ politicalParty)
 ```
-
+It seems from this graph, that respondents who answered they identified with strong republican have the highest ratio of married people to non-married.  This could be due to the fact of republicans championing strong family values.  
 <br />
 5. 
 ```{r}
-ggplot(dat, aes(x = politicalParty, y = highestSchool)) + geom_boxplot() + theme(axis.text.x = element_text(angle = 90))
+ggplot(dat, aes(x = mStatus, y = highestSchool)) + geom_boxplot() + theme(axis.text.x = element_text(angle = 90))
 ```
+According to this graph,  respondents who did not answer have the highest average education.  Of the people who answered, divorced respondents have the highest average and married had one of the lowest if not the lowest average.
 
 <br />
 6.
